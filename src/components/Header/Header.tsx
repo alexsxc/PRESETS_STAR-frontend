@@ -1,10 +1,11 @@
-// import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import AuthModal from '../AuthModal/AuthModal';
 import Logo from '../../assets/logo.svg'
 import Acc from '../../assets/acc.svg'
 import Shop from '../../assets/shop.svg'
 
 function Header() {
-   /*
+   /* изменение картинки Acc на аву чела авторизованного
     const [avatarUrl, setAvatarUrl] = useState<string>('');
 
     useEffect(() => {
@@ -30,15 +31,28 @@ function Header() {
         fetchAvatar();
     }, []);
     */
+    const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+
+    const handleAccClick = () => {
+        setIsAuthModalOpen(true)
+    }
+
+    const handleCloseModal = () => {
+        setIsAuthModalOpen(false)
+    }
+
     return (
         <header className="header">
-                <div className="logo">
-                    <a href="#"><img src={Logo} alt="logotype" /></a>
-                </div>
-                <nav className="nav">
-                    <a href="#"><img className="acc_logo" src={Acc} alt="your account" /></a>
-                    <a href="#"><img src={Shop} alt="shop" /></a>
-                </nav>
+            <div className="logo">
+                <a href="#"><img src={Logo} alt="logotype" /></a>
+            </div>
+            <nav className="nav">
+                <button onClick={handleAccClick} className="acc-button">
+                    <img className="acc_logo" src={Acc} alt="your account" />
+                </button>
+                <a href="#"><img src={Shop} alt="shop" /></a>
+            </nav>
+            <AuthModal isOpen={isAuthModalOpen} onClose={handleCloseModal} />
         </header>
     )
 }
